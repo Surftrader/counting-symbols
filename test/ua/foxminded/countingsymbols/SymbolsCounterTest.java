@@ -70,6 +70,37 @@ public class SymbolsCounterTest {
         
         assertEquals(expected, actual);
     }
+    
+    @Test
+    public void shouldReturnEmptyStringFromEmptyText() {
+        SymbolsCounter sc = new SymbolsCounter();
+        String actual = sc.countChars("");
+        String expected = "\n";
+        
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void shouldReturnCounterOfSymbolsFromTextWhichContainsOneSymbol() {
+        SymbolsCounter sc = new SymbolsCounter();
+        String actual = sc.countChars("q");
+        String expected = 
+                    "q\n"
+                + "\"q\" - 1\n";
+        
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void shouldReturnCounterOfSymbolsFromTextWhichContainsFiveSameDigits() {
+        SymbolsCounter sc = new SymbolsCounter();
+        String actual = sc.countChars("RRRRR");
+        String expected = 
+                    "RRRRR\n"
+                + "\"R\" - 5\n";
+        
+        assertEquals(expected, actual);
+    }
 
     @Test
     public void shouldReturnResultStringFromCache() {
