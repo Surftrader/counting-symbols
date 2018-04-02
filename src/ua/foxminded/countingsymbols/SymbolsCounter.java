@@ -6,25 +6,19 @@ import java.util.Map;
 
 public class SymbolsCounter {
 
-    public static final Map<String, String> MAP_CACHE = new HashMap<>();
+    private Map<String, String> mapCache = new HashMap<>();
 
-    private String text;
-
-    public SymbolsCounter() {
-    }
-
-    public String calculateCounterOfCharacters() {
+    public String countChars(String text) {
 
         if (text == null) {
             throw new IllegalArgumentException("Data can`t be null");
         }
 
-        if (MAP_CACHE.containsKey(text)) {
-            return MAP_CACHE.get(text);
-        } else {
-            MAP_CACHE.put(text, generateValue(text));
+        if (!mapCache.containsKey(text)) {
+            mapCache.put(text, generateValue(text));
         }
-        return generateValue(text);
+
+        return mapCache.get(text);
     }
 
     private String generateValue(String text) {
@@ -40,18 +34,14 @@ public class SymbolsCounter {
                 map.put(letter, 1);
             }
         }
-        return text + "\n" + writeResultString(map);
+        return text + "\n" + writeCount(map);
     }
 
-    private String writeResultString(Map<Character, Integer> map) {
+    private String writeCount(Map<Character, Integer> map) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Character, Integer> item : map.entrySet()) {
             sb.append("\"" + item.getKey() + "\" - " + item.getValue() + "\n");
         }
         return sb.toString();
-    }
-
-    public void setText(String text) {
-        this.text = text;
     }
 }
